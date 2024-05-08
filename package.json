@@ -1,0 +1,16 @@
+{
+	"name": "quick-ledger-invoice-app",
+	"version": "1.0.0",
+	"description": "App that lets users do the following: Create, read, update, and delete invoices, Save draft invoices, and mark pending invoices as paid and Filter invoices by status (draft/pending/paid)",
+	"scripts": {
+		"prisma-migrate": "npx prisma migrate dev --name",
+		"prisma-seed": "ts-node prisma/seed.ts"
+	},
+	"devDependencies": {
+		"@types/node": "^20.12.10",
+		"prisma": "^5.13.0"
+	},
+	"dependencies": {
+		"@prisma/client": "^5.13.0"
+	}
+}
