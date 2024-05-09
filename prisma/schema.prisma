@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Invoice {
-  id           String           @id @default(cuid())
+  id           String           @id
   createdAt    DateTime         @default(now())
   paymentDue   DateTime
   description  String
