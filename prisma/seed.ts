@@ -71,7 +71,7 @@ async function seeding() {
 		prisma.invoice.createMany({
 			data: [
 				{
-					id: 'i1',
+					id: 'RT3080',
 					createdAt: '2021-08-18T00:00:00.000Z',
 					paymentDue: '2021-08-19T00:00:00.000Z',
 					description: 'Re-branding',
@@ -81,7 +81,7 @@ async function seeding() {
 					total: 1800.9,
 				},
 				{
-					id: 'i2',
+					id: 'XM9141',
 					createdAt: '2021-08-21T00:00:00.000Z',
 					paymentDue: '2021-09-20T00:00:00.000Z',
 					description: 'Graphic Design',
@@ -91,7 +91,7 @@ async function seeding() {
 					total: 556.0,
 				},
 				{
-					id: 'i3',
+					id: 'RG0314',
 					createdAt: '2021-09-24T00:00:00.000Z',
 					paymentDue: '2021-10-01T00:00:00.000Z',
 					description: 'Website Redesign',
@@ -101,7 +101,7 @@ async function seeding() {
 					total: 14002.33,
 				},
 				{
-					id: 'i4',
+					id: 'RT2080',
 					createdAt: '2021-10-11T00:00:00.000Z',
 					paymentDue: '2021-10-12T00:00:00.000Z',
 					description: 'Logo Concept',
@@ -111,7 +111,7 @@ async function seeding() {
 					total: 102.04,
 				},
 				{
-					id: 'i5',
+					id: 'AA1449',
 					createdAt: '2021-10-07T00:00:00.000Z',
 					paymentDue: '2021-10-14T00:00:00.000Z',
 					description: 'Re-branding',
@@ -124,18 +124,18 @@ async function seeding() {
 		}),
 		prisma.invoiceAddress.createMany({
 			data: [
-				{ invoiceId: 'i1', addressId: 'a2' },
-				{ invoiceId: 'i2', addressId: 'a3' },
-				{ invoiceId: 'i3', addressId: 'a4' },
-				{ invoiceId: 'i4', addressId: 'a5' },
-				{ invoiceId: 'i5', addressId: 'a6' },
+				{ invoiceId: 'RT3080', addressId: 'a2' },
+				{ invoiceId: 'XM9141', addressId: 'a3' },
+				{ invoiceId: 'RG0314', addressId: 'a4' },
+				{ invoiceId: 'RT2080', addressId: 'a5' },
+				{ invoiceId: 'AA1449', addressId: 'a6' },
 			],
 		}),
 		prisma.item.createMany({
 			data: [
 				{
 					id: 'it1',
-					invoiceId: 'i1',
+					invoiceId: 'RT3080',
 					name: 'Brand Guidelines',
 					quantity: 1,
 					price: 1800.9,
@@ -143,7 +143,7 @@ async function seeding() {
 				},
 				{
 					id: 'it2',
-					invoiceId: 'i2',
+					invoiceId: 'XM9141',
 					name: 'Banner Design',
 					quantity: 1,
 					price: 156.0,
@@ -151,7 +151,7 @@ async function seeding() {
 				},
 				{
 					id: 'it3',
-					invoiceId: 'i2',
+					invoiceId: 'XM9141',
 					name: 'Email Design',
 					quantity: 2,
 					price: 200.0,
@@ -159,7 +159,7 @@ async function seeding() {
 				},
 				{
 					id: 'it4',
-					invoiceId: 'i3',
+					invoiceId: 'RG0314',
 					name: 'Website Redesign',
 					quantity: 1,
 					price: 14002.33,
@@ -167,7 +167,7 @@ async function seeding() {
 				},
 				{
 					id: 'it5',
-					invoiceId: 'i4',
+					invoiceId: 'RT2080',
 					name: 'Logo Sketches',
 					quantity: 1,
 					price: 102.04,
@@ -175,7 +175,7 @@ async function seeding() {
 				},
 				{
 					id: 'it6',
-					invoiceId: 'i5',
+					invoiceId: 'AA1449',
 					name: 'New Logo',
 					quantity: 1,
 					price: 1532.33,
@@ -183,7 +183,7 @@ async function seeding() {
 				},
 				{
 					id: 'it7',
-					invoiceId: 'i5',
+					invoiceId: 'AA1449',
 					name: 'Brand Guidelines',
 					quantity: 1,
 					price: 2500.0,
