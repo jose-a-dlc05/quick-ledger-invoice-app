@@ -7,4 +7,6 @@ export interface InvoiceInt {
 	clientId: string;
 	status: string;
 	total: number;
+	senderAddressId: string;
+	clientAddressId: string;
 }

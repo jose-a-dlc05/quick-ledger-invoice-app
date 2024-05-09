@@ -14,17 +14,21 @@ datasource db {
 }
 
 model Invoice {
-  id           String           @id
-  createdAt    DateTime         @default(now())
-  paymentDue   DateTime
-  description  String
-  paymentTerms Int
-  client       Client           @relation(fields: [clientId], references: [id])
-  clientId     String
-  status       String
-  total        Float
-  items        Item[]
-  addresses    InvoiceAddress[]
+  id              String           @id
+  createdAt       DateTime         @default(now())
+  paymentDue      DateTime
+  description     String
+  paymentTerms    Int
+  client          Client           @relation(fields: [clientId], references: [id])
+  clientId        String
+  status          String
+  total           Float
+  items           Item[]
+  senderAddress   Address          @relation(name: "SenderAddress", fields: [senderAddressId], references: [id])
+  senderAddressId String
+  clientAddress   Address          @relation(name: "ClientAddress", fields: [clientAddressId], references: [id])
+  clientAddressId String
+  InvoiceAddress  InvoiceAddress[]
 }
 
 model Client {
@@ -35,13 +39,15 @@ model Client {
 }
 
 model Address {
-  id       String           @id @default(cuid())
-  street   String
-  city     String
-  postCode String
-  country  String
-  isSender Boolean
-  invoices InvoiceAddress[]
+  id             String           @id @default(cuid())
+  street         String
+  city           String
+  postCode       String
+  country        String
+  isSender       Boolean
+  invoices       InvoiceAddress[]
+  senderInvoices Invoice[]        @relation("SenderAddress")
+  clientInvoices Invoice[]        @relation("ClientAddress")
 }
 
 model InvoiceAddress {

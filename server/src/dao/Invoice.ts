@@ -19,6 +19,17 @@ export default class InvoiceDAO {
 		try {
 			return await prisma.invoice.findUniqueOrThrow({
 				where: { id },
+				include: {
+					client: {
+						select: {
+							name: true,
+							email: true,
+						},
+					},
+					senderAddress: true,
+					clientAddress: true,
+					items: true,
+				},
 			});
 		} catch (err) {
 			console.error(err);

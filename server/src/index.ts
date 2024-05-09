@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import './lib/env';
-import invoices from './routes/Invoice';
+import invoices from './routes/invoice';
 
 const app: express.Express = express();
 app.use(express.json());
