@@ -34,7 +34,7 @@ model Invoice {
 model Client {
   id       String    @id @default(cuid())
   name     String
-  email    String?
+  email    String    @unique
   invoices Invoice[]
 }
 
