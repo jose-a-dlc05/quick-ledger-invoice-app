@@ -3,6 +3,27 @@ import { InvoiceInt } from '../utils/interfaces';
 import { generateUniqueID } from '../utils/invoicesUtils';
 import { toISODateString } from '../utils/dateManipulator';
 
+const createOrGetAddress = async (addressDetails: any) => {
+	const { street, city, postCode, country } = addressDetails;
+
+	let address = await prisma.address.findFirst({
+		where: {
+			street,
+			city,
+			postCode,
+			country,
+		},
+	});
+
+	if (!address) {
+		address = await prisma.address.create({
+			data: addressDetails,
+		});
+	}
+
+	return address;
+};
+
 const prisma = new PrismaClient();
 export default class InvoiceDAO {
 	getInvoices = async () => {
@@ -62,25 +83,25 @@ export default class InvoiceDAO {
 		};
 
 		try {
-			let client = await prisma.client.findUnique({
-				where: {
+			const client = await prisma.client.upsert({
+				where: { email: postData.clientEmail },
+				update: {
+					name: postData.clientName,
+				},
+				create: {
 					email: postData.clientEmail,
+					name: postData.clientName,
 				},
 			});
 
-			if (!client) {
-				client = await prisma.client.create({
-					data: { name: postData.clientName, email: postData.clientEmail },
-				});
-			}
+			const senderAddressCreated = await createOrGetAddress(
+				postData.senderAddress
+			);
 
-			const senderAddressCreated = await prisma.address.create({
-				data: { ...postData.senderAddress },
-			});
+			const clientAddressCreated = await createOrGetAddress(
+				postData.clientAddress
+			);
 
-			const clientAddressCreated = await prisma.address.create({
-				data: { ...postData.clientAddress },
-			});
 			return await prisma.invoice.create({
 				data: {
 					id: generateUniqueID(),
@@ -112,12 +133,94 @@ export default class InvoiceDAO {
 		}
 	};
 
-	updateInvoice = async (data: InvoiceInt, id: string) => {
+	updateInvoice = async (invoiceData: any, id: string) => {
+		const {
+			paymentDue,
+			description,
+			paymentTerms,
+			createdAt,
+			status,
+			client,
+			senderAddress,
+			clientAddress,
+			items,
+		} = invoiceData;
+
+		const calculatedTotal = items.reduce(
+			(sum: number, item: any) => sum + item.total,
+			0
+		);
 		try {
-			// return await prisma.invoice.update({
-			// 	where: { id },
-			// 	data,
-			// });
+			const updatedInvoice = await prisma.$transaction(async (prisma) => {
+				if (client) {
+					await prisma.client.upsert({
+						where: { email: client.email },
+						update: { name: client.name, email: client.email },
+						create: { ...client },
+					});
+				}
+				if (senderAddress) {
+					await prisma.address.update({
+						where: { id: senderAddress.id },
+						data: {
+							street: senderAddress.street,
+							city: senderAddress.city,
+							postCode: senderAddress.postCode,
+							country: senderAddress.country,
+						},
+					});
+				}
+				if (clientAddress) {
+					await prisma.address.update({
+						where: { id: clientAddress.id },
+						data: {
+							street: clientAddress.street,
+							city: clientAddress.city,
+							postCode: clientAddress.postCode,
+							country: clientAddress.country,
+						},
+					});
+				}
+				return await prisma.invoice.update({
+					where: { id },
+					data: {
+						paymentDue: toISODateString(paymentDue),
+						createdAt,
+						description,
+						paymentTerms,
+						status,
+						total: calculatedTotal,
+						client: { connect: { email: client.email } },
+						senderAddress: { connect: { id: senderAddress.id } },
+						clientAddress: { connect: { id: clientAddress.id } },
+						items: {
+							upsert: items.map((item: any) => ({
+								where: { id: item.id },
+								update: {
+									name: item.name,
+									quantity: item.quantity,
+									price: item.price,
+									total: item.price * item.quantity,
+								},
+								create: {
+									id: item.id,
+									name: item.name,
+									quantity: item.quantity,
+									price: item.price,
+									total: item.price * item.quantity,
+								},
+							})),
+						},
+					},
+					include: {
+						items: true,
+						client: true,
+						senderAddress: true,
+						clientAddress: true,
+					},
+				});
+			});
+			return updatedInvoice;
 		} catch (err) {
 			console.error(err);
 			await prisma.$disconnect();

@@ -19,14 +19,14 @@ model Invoice {
   paymentDue      DateTime
   description     String
   paymentTerms    Int
-  client          Client           @relation(fields: [clientId], references: [id])
+  client          Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId        String
   status          String
   total           Float
   items           Item[]
-  senderAddress   Address          @relation(name: "SenderAddress", fields: [senderAddressId], references: [id])
+  senderAddress   Address          @relation(name: "SenderAddress", fields: [senderAddressId], references: [id], onDelete: Cascade)
   senderAddressId String
-  clientAddress   Address          @relation(name: "ClientAddress", fields: [clientAddressId], references: [id])
+  clientAddress   Address          @relation(name: "ClientAddress", fields: [clientAddressId], references: [id], onDelete: Cascade)
   clientAddressId String
   InvoiceAddress  InvoiceAddress[]
 }
@@ -61,7 +61,7 @@ model InvoiceAddress {
 
 model Item {
   id        String  @id @default(cuid())
-  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   invoiceId String
   name      String
   quantity  Int

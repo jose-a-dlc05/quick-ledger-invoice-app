@@ -31,6 +31,10 @@ export default class InvoiceController {
 	};
 	updateInvoice = async (req: any, res: any) => {
 		try {
+			const resourceFound = await invoiceService.getInvoiceById(req.params.id);
+			if (!resourceFound) {
+				return res.status(404).send('Invoice not found');
+			}
 			return res.json(
 				await invoiceService.updateInvoice(req.body, req.params.id)
 			);
@@ -40,6 +44,10 @@ export default class InvoiceController {
 	};
 	deleteInvoice = async (req: any, res: any) => {
 		try {
+			const resourceFound = await invoiceService.getInvoiceById(req.params.id);
+			if (!resourceFound) {
+				return res.status(404).send('Invoice not found');
+			}
 			return res.json(await invoiceService.deleteInvoice(req.params.id));
 		} catch (err) {
 			return res.send(err);
