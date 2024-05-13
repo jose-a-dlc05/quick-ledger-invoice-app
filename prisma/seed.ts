@@ -79,6 +79,8 @@ async function seeding() {
 					clientId: 'c1',
 					status: 'paid',
 					total: 1800.9,
+					senderAddressId: 'a1',
+					clientAddressId: 'a2',
 				},
 				{
 					id: 'XM9141',
@@ -89,6 +91,8 @@ async function seeding() {
 					clientId: 'c2',
 					status: 'pending',
 					total: 556.0,
+					senderAddressId: 'a1',
+					clientAddressId: 'a3',
 				},
 				{
 					id: 'RG0314',
@@ -99,6 +103,8 @@ async function seeding() {
 					clientId: 'c3',
 					status: 'paid',
 					total: 14002.33,
+					senderAddressId: 'a1',
+					clientAddressId: 'a4',
 				},
 				{
 					id: 'RT2080',
@@ -109,6 +115,8 @@ async function seeding() {
 					clientId: 'c4',
 					status: 'pending',
 					total: 102.04,
+					senderAddressId: 'a1',
+					clientAddressId: 'a5',
 				},
 				{
 					id: 'AA1449',
@@ -119,6 +127,8 @@ async function seeding() {
 					clientId: 'c5',
 					status: 'pending',
 					total: 4032.33,
+					senderAddressId: 'a1',
+					clientAddressId: 'a6',
 				},
 			],
 		}),

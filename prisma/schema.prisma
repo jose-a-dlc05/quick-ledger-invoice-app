@@ -14,34 +14,40 @@ datasource db {
 }
 
 model Invoice {
-  id           String           @id @default(cuid())
-  createdAt    DateTime         @default(now())
-  paymentDue   DateTime
-  description  String
-  paymentTerms Int
-  client       Client           @relation(fields: [clientId], references: [id])
-  clientId     String
-  status       String
-  total        Float
-  items        Item[]
-  addresses    InvoiceAddress[]
+  id              String           @id
+  createdAt       DateTime         @default(now())
+  paymentDue      DateTime
+  description     String
+  paymentTerms    Int
+  client          Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId        String
+  status          String
+  total           Float
+  items           Item[]
+  senderAddress   Address          @relation(name: "SenderAddress", fields: [senderAddressId], references: [id], onDelete: Cascade)
+  senderAddressId String
+  clientAddress   Address          @relation(name: "ClientAddress", fields: [clientAddressId], references: [id], onDelete: Cascade)
+  clientAddressId String
+  InvoiceAddress  InvoiceAddress[]
 }
 
 model Client {
   id       String    @id @default(cuid())
   name     String
-  email    String?
+  email    String    @unique
   invoices Invoice[]
 }
 
 model Address {
-  id       String           @id @default(cuid())
-  street   String
-  city     String
-  postCode String
-  country  String
-  isSender Boolean
-  invoices InvoiceAddress[]
+  id             String           @id @default(cuid())
+  street         String
+  city           String
+  postCode       String
+  country        String
+  isSender       Boolean
+  invoices       InvoiceAddress[]
+  senderInvoices Invoice[]        @relation("SenderAddress")
+  clientInvoices Invoice[]        @relation("ClientAddress")
 }
 
 model InvoiceAddress {
@@ -55,7 +61,7 @@ model InvoiceAddress {
 
 model Item {
   id        String  @id @default(cuid())
-  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   invoiceId String
   name      String
   quantity  Int
