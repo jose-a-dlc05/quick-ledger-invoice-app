@@ -5,8 +5,11 @@ import { formatDate } from '../utils/dateManipulator';
 const invoiceDao = new InvoiceDAO();
 
 export default class InvoiceService {
-	getInvoices = async () => {
+	getInvoices = async (status?: string) => {
 		try {
+			if (status) {
+				return await invoiceDao.getInvoices(status);
+			}
 			return await invoiceDao.getInvoices();
 		} catch (err) {
 			console.error();

@@ -26,9 +26,10 @@ const createOrGetAddress = async (addressDetails: any) => {
 
 const prisma = new PrismaClient();
 export default class InvoiceDAO {
-	getInvoices = async () => {
+	getInvoices = async (status?: string) => {
 		try {
 			return await prisma.invoice.findMany({
+				where: { status },
 				select: {
 					id: true,
 					paymentDue: true,

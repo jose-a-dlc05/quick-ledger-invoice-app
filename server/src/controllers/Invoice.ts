@@ -4,8 +4,22 @@ const invoiceService = new InvoiceService();
 
 export default class InvoiceController {
 	getInvoices = async (req: any, res: any) => {
+		const { status } = req.query;
 		try {
-			return res.status(200).json(await invoiceService.getInvoices());
+			if (status) {
+				const invoices = await invoiceService.getInvoices(status);
+				return await res.status(200).json({
+					success: true,
+					count: invoices?.length,
+					data: invoices,
+				});
+			}
+			const invoices = await invoiceService.getInvoices();
+			return await res.status(200).json({
+				success: true,
+				count: invoices?.length,
+				data: invoices,
+			});
 		} catch (err) {
 			console.error(err);
 		}
