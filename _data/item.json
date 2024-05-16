@@ -1,0 +1,58 @@
+[
+	{
+		"id": "it1",
+		"invoiceId": "RT3080",
+		"name": "Brand Guidelines",
+		"quantity": 1,
+		"price": 1800.9,
+		"total": 1800.9
+	},
+	{
+		"id": "it2",
+		"invoiceId": "XM9141",
+		"name": "Banner Design",
+		"quantity": 1,
+		"price": 156.0,
+		"total": 156.0
+	},
+	{
+		"id": "it3",
+		"invoiceId": "XM9141",
+		"name": "Email Design",
+		"quantity": 2,
+		"price": 200.0,
+		"total": 400.0
+	},
+	{
+		"id": "it4",
+		"invoiceId": "RG0314",
+		"name": "Website Redesign",
+		"quantity": 1,
+		"price": 14002.33,
+		"total": 14002.33
+	},
+	{
+		"id": "it5",
+		"invoiceId": "RT2080",
+		"name": "Logo Sketches",
+		"quantity": 1,
+		"price": 102.04,
+		"total": 102.04
+	},
+	{
+		"id": "it6",
+		"invoiceId": "AA1449",
+		"name": "New Logo",
+		"quantity": 1,
+		"price": 1532.33,
+		"total": 1532.33
+	},
+	{
+		"id": "it7",
+		"invoiceId": "AA1449",
+		"name": "Brand Guidelines",
+		"quantity": 1,
+		"price": 2500.0,
+		"total": 2500.0
+	}
+]

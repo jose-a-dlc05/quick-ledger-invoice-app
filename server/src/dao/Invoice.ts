@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { InvoiceInt } from '../utils/interfaces';
 import { generateUniqueID } from '../utils/invoicesUtils';
 import { toISODateString } from '../utils/dateManipulator';
@@ -26,7 +26,7 @@ const createOrGetAddress = async (addressDetails: any) => {
 
 const prisma = new PrismaClient();
 export default class InvoiceDAO {
-	getInvoices = async (status?: string) => {
+	getInvoices = async (status?: Prisma.EnumStatusFilter<'Invoice'>) => {
 		try {
 			return await prisma.invoice.findMany({
 				where: { status },
@@ -110,7 +110,6 @@ export default class InvoiceDAO {
 					paymentTerms: postData.paymentTerms,
 					description: postData.description,
 					clientId: client.id,
-					status: 'pending',
 					senderAddressId: senderAddressCreated.id,
 					clientAddressId: clientAddressCreated.id,
 					total: postData.items.reduce((sum, item) => sum + item.total, 0),

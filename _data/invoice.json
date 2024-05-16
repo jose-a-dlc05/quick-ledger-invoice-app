@@ -1,0 +1,67 @@
+[
+	{
+		"id": "RT3080",
+		"createdAt": "2021-08-18T00:00:00.000Z",
+		"paymentDue": "2021-08-19T00:00:00.000Z",
+		"description": "Re-branding",
+		"paymentTerms": 1,
+		"clientId": "c1",
+		"status": "PAID",
+		"total": 1800.9,
+		"userId": "5d7a514b5d2c12c7449be042",
+		"senderAddressId": "a1",
+		"clientAddressId": "a2"
+	},
+	{
+		"id": "XM9141",
+		"createdAt": "2021-08-21T00:00:00.000Z",
+		"paymentDue": "2021-09-20T00:00:00.000Z",
+		"description": "Graphic Design",
+		"paymentTerms": 30,
+		"clientId": "c2",
+		"status": "PENDING",
+		"total": 556.0,
+		"userId": "5d7a514b5d2c12c7449be042",
+		"senderAddressId": "a1",
+		"clientAddressId": "a3"
+	},
+	{
+		"id": "RG0314",
+		"createdAt": "2021-09-24T00:00:00.000Z",
+		"paymentDue": "2021-10-01T00:00:00.000Z",
+		"description": "Website Redesign",
+		"paymentTerms": 7,
+		"clientId": "c3",
+		"status": "PAID",
+		"total": 14002.33,
+		"userId": "5d7a514b5d2c12c7449be042",
+		"senderAddressId": "a1",
+		"clientAddressId": "a4"
+	},
+	{
+		"id": "RT2080",
+		"createdAt": "2021-10-11T00:00:00.000Z",
+		"paymentDue": "2021-10-12T00:00:00.000Z",
+		"description": "Logo Concept",
+		"paymentTerms": 1,
+		"clientId": "c4",
+		"status": "PENDING",
+		"total": 102.04,
+		"userId": "5d7a514b5d2c12c7449be042",
+		"senderAddressId": "a1",
+		"clientAddressId": "a5"
+	},
+	{
+		"id": "AA1449",
+		"createdAt": "2021-10-07T00:00:00.000Z",
+		"paymentDue": "2021-10-14T00:00:00.000Z",
+		"description": "Re-branding",
+		"paymentTerms": 7,
+		"clientId": "c5",
+		"status": "PENDING",
+		"total": 4032.33,
+		"userId": "5c8a1d5b0190b214360dc039",
+		"senderAddressId": "a1",
+		"clientAddressId": "a6"
+	}
+]

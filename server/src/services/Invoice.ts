@@ -1,11 +1,12 @@
 import InvoiceDAO from '../dao/Invoice';
 import { InvoiceInt } from '../utils/interfaces';
 import { formatDate } from '../utils/dateManipulator';
+import { Prisma } from '@prisma/client';
 
 const invoiceDao = new InvoiceDAO();
 
 export default class InvoiceService {
-	getInvoices = async (status?: string) => {
+	getInvoices = async (status?: Prisma.EnumStatusFilter<'Invoice'>) => {
 		try {
 			if (status) {
 				return await invoiceDao.getInvoices(status);

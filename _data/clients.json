@@ -1,0 +1,11 @@
+[
+	{ "id": "c1", "name": "Jensen Huang", "email": "jensenh@mail.com" },
+	{ "id": "c2", "name": "Alex Grim", "email": "alexgrim@mail.com" },
+	{ "id": "c3", "name": "John Morrison", "email": "jm@myco.com" },
+	{ "id": "c4", "name": "Alysa Werner", "email": "alysa@email.co.uk" },
+	{
+		"id": "c5",
+		"name": "Mellisa Clarke",
+		"email": "mellisa.clarke@example.com"
+	}
+]

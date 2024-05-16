@@ -4,13 +4,19 @@
 	"description": "App that lets users do the following: Create, read, update, and delete invoices, Save draft invoices, and mark pending invoices as paid and Filter invoices by status (draft/pending/paid)",
 	"scripts": {
 		"prisma-migrate": "npx prisma migrate dev --name",
-		"prisma-seed": "ts-node prisma/seed.ts"
+		"prisma-reset": "npx prisma migrate reset",
+		"prisma-seed": "ts-node prisma/seed.ts -i",
+		"prisma-delete": "ts-node prisma/seed.ts -d"
 	},
 	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
 		"@types/node": "^20.12.10",
+		"colors": "^1.4.0",
 		"prisma": "^5.13.0"
 	},
 	"dependencies": {
-		"@prisma/client": "^5.13.0"
+		"@prisma/client": "^5.13.0",
+		"bcryptjs": "^2.4.3",
+		"jsonwebtoken": "^9.0.2"
 	}
 }

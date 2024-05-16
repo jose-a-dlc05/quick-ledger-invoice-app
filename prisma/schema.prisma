@@ -21,7 +21,7 @@ model Invoice {
   paymentTerms    Int
   client          Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId        String
-  status          String
+  status          Status           @default(PENDING)
   total           Float
   items           Item[]
   senderAddress   Address          @relation(name: "SenderAddress", fields: [senderAddressId], references: [id], onDelete: Cascade)
@@ -29,6 +29,14 @@ model Invoice {
   clientAddress   Address          @relation(name: "ClientAddress", fields: [clientAddressId], references: [id], onDelete: Cascade)
   clientAddressId String
   InvoiceAddress  InvoiceAddress[]
+  userId          String?
+  user            User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Status {
+  PAID
+  PENDING
+  DRAFT
 }
 
 model Client {
@@ -44,7 +52,7 @@ model Address {
   city           String
   postCode       String
   country        String
-  isSender       Boolean
+  isSender       Boolean          @default(false)
   invoices       InvoiceAddress[]
   senderInvoices Invoice[]        @relation("SenderAddress")
   clientInvoices Invoice[]        @relation("ClientAddress")
@@ -67,4 +75,21 @@ model Item {
   quantity  Int
   price     Float
   total     Float
+}
+
+model User {
+  id                  String    @id @unique @default(uuid())
+  name                String
+  email               String    @unique
+  role                Role      @default(USER)
+  password            String
+  resetPasswordToken  String?
+  resetPasswordExpire DateTime?
+  createdAt           DateTime  @default(now())
+  Invoice             Invoice[]
+}
+
+enum Role {
+  USER
+  PUBLISHER
 }
