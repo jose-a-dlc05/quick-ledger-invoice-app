@@ -1,8 +1,8 @@
 import { PrismaClient, Role } from '@prisma/client';
 import fs from 'fs';
 import { hashUserPasswords } from '../server/src/utils/authUtils';
-import colors from 'colors';
 import path from 'path';
+
 const prisma = new PrismaClient();
 const dataDirectory = path.join(__dirname, '../_data');
 
@@ -23,6 +23,7 @@ const clients = JSON.parse(
 	fs.readFileSync(`${dataDirectory}/clients.json`, `utf-8`)
 );
 const hashedUsers = hashUserPasswords(users);
+
 async function seeding() {
 	await prisma.$transaction(async (transaction) => {
 		await transaction.user.createMany({

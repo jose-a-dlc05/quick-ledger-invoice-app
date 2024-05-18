@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import './lib/env';
 import invoices from './routes/invoice';
+import users from './routes/auth';
 
 const app: express.Express = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/api/v1/invoices', invoices);
+app.use('/api/v1/auth', users);
 
 const PORT = process.env.PORT || 8000;
 
