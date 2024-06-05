@@ -2,6 +2,7 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import { InvoiceInt } from '../utils/interfaces';
 import { generateUniqueID } from '../utils/invoicesUtils';
 import { toISODateString } from '../utils/dateManipulator';
+import { ErrorResponse } from '../utils/errorResponse';
 
 const createOrGetAddress = async (addressDetails: any) => {
 	const { street, city, postCode, country } = addressDetails;
@@ -50,7 +51,7 @@ export default class InvoiceDAO {
 		}
 	};
 
-	getInvoiceById = async (id: string) => {
+	getInvoiceById = async (id: string, next: any) => {
 		try {
 			return await prisma.invoice.findUniqueOrThrow({
 				where: { id },
@@ -67,7 +68,8 @@ export default class InvoiceDAO {
 				},
 			});
 		} catch (err) {
-			console.error(err);
+			let error = { err, id };
+			next(error);
 			await prisma.$disconnect();
 			process.exit(1);
 		} finally {

@@ -16,12 +16,8 @@ export default class InvoiceService {
 			console.error();
 		}
 	};
-	getInvoiceById = async (id: string) => {
-		try {
-			return await invoiceDao.getInvoiceById(id);
-		} catch (err) {
-			console.error(err);
-		}
+	getInvoiceById = async (id: string, next: any) => {
+		return await invoiceDao.getInvoiceById(id, next);
 	};
 	createInvoice = async (data: InvoiceInt) => {
 		try {
